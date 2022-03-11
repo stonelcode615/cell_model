@@ -1,0 +1,18 @@
+#PBS -A PAA0004
+#PBS -N run-lam-@name-@nf
+#PBS -l walltime=02:30:00,nodes=1:ppn=8,mem=12gb
+#PBS -S /bin/bash
+#PBS -j oe
+
+pypath=/users/PES0434/ucn1118/tools/python364/bin
+
+trap "cp out* summary* $PBS_O_WORKDIR" TERM
+
+cd $PBS_O_WORKDIR
+
+cp  *.py $TMPDIR
+cd $TMPDIR
+
+$pypath/python3 main.py 
+
+mv out* summary* $PBS_O_WORKDIR
